@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace WebApplication5.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        [Authorize(Roles ="admin")]
+        
         public IActionResult Index()
         {
             return View();
