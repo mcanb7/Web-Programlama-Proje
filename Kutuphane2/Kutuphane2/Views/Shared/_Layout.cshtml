@@ -13,6 +13,16 @@
     <link href="~/css/animate.css" rel="stylesheet" />
     <link href="~/css/morris.css" rel="stylesheet" />
     <link href="~/css/colors/megna.css" rel="stylesheet" />
+    <link href="~/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/css/sweetalert2.min.css" rel="stylesheet" />
+    <style>
+
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
 
@@ -30,16 +40,16 @@
                         <b>
                             <img src="~/images/kindpng_1331656.png" />
                         </b>
-                    <span class="hidden-xs">
-                        E-Kütüphane
-                    </span>
+                        <span class="hidden-xs">
+                            E-Kütüphane
+                        </span>
                     </a>
                 </div>
                 <ul class="nav navbar-top-links navbar-left hidden-xs">
                     <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
-                    
+
 
                     <li class="dropdown">
                         <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="~/images/clipart1297398.png" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b> </a>
@@ -64,16 +74,23 @@
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="index.html" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard <span class="fa arrow"></span> </span></a>
+                        <a href="index.html" class="waves-effect"><i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Ana Sayfa <span class="fa arrow"></span> </span></a>
+                    </li>
+                    <li>
+                        <a href="inbox.html" class="waves-effect"><i data-icon=")" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">Kategoriler <span class="fa arrow"></span></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="@Url.Action("Index","Kategori")">Listele</a></li>
+                            <li><a href="javascript:void(0)">Ekle</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="inbox.html" class="waves-effect"><i data-icon=")" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">Kitaplar <span class="fa arrow"></span></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="chat.html">Kitapları Listele</a></li>
-                            <li><a href="chat.html">Kitap Ekle</a></li>
+                            <li><a href="chat.html">Listele</a></li>
+                            <li><a href="chat.html">Ekle</a></li>
                             <li><a href="chat.html">Ödünç Al</a></li>
                         </ul>
-                    </li>                      
+                    </li>
                     <li><a href="login.html" class="waves-effect"><i data-icon="&#xe045;" class="linea-icon linea-aerrow fa-fw"></i> <span class="hide-menu">Log out</span></a></li>
                 </ul>
             </div>
@@ -90,7 +107,7 @@
                 </div>
                 <div class="row white-box">
                     @RenderBody()
-                </div> 
+                </div>
 
 
             </div>
@@ -115,6 +132,8 @@
     <script src="~/js/jquery.charts-sparkline.js"></script>
     <script src="~/js/jquery.sparkline.min.js"></script>
     <script src="~/js/jquery.toast.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/sweetalert2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $.toast({
@@ -129,6 +148,36 @@
             })
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#example tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            });
+
+            // DataTable
+            var table = $('#example').DataTable({
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            });
+
+        });
+    </script>
+    <script src="~/js/Main.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

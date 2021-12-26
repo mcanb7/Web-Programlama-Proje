@@ -17,5 +17,7 @@ namespace Kutuphane2.Models
         [MaxLength(15)]
         public string YazarAdi { get; set; }
 
+        public virtual List<Kitap> Kitaplar { get; set; }
+
     }
 }

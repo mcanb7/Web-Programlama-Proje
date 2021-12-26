@@ -21,8 +21,8 @@ namespace Kutuphane2.Models
         public DateTime EklenmeTarihi{ get; set; }
         [Required(ErrorMessage ="Bu alan boş bırakılamaz.")]
         public int YazarId { get; set; }
-        public Yazar Yazar { get; set; }
-        public List<Kategori> Kategoriler{ get; set; }
+        public virtual Yazar Yazar { get; set; }
+        public virtual List<Kategori> Kategoriler{ get; set; }
 
     }
 }

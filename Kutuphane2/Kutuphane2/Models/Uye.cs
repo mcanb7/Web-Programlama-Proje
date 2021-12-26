@@ -43,6 +43,7 @@ namespace Kutuphane2.Models
         [Column(TypeName ="char")]
         [MaxLength(1), MinLength(1)]
         public char Yetki { get; set; }
-        public List<OduncAl> OduncKitaplar{ get; set; }
+
+        public virtual List<OduncAl> OduncKitaplar{ get; set; }
     }
 }

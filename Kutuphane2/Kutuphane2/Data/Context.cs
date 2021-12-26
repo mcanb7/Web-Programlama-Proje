@@ -11,7 +11,7 @@ namespace Kutuphane2.Data
 {
     public class Context:DbContext
     {
-        public Context()
+        public Context():base("Context")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>("Context"));
         }

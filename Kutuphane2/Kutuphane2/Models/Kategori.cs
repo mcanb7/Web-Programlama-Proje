@@ -16,6 +16,6 @@ namespace Kutuphane2.Models
         [Column(TypeName="varchar")]
         [MaxLength(15)]
         public string KategoriAdi{ get; set; }
-        public List<Kitap> Kitaplar { get; set; }
+        public virtual List<Kitap> Kitaplar { get; set; }
     }
 }

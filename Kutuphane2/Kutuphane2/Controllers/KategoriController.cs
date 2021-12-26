@@ -4,37 +4,46 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Threading.Tasks;
+using Kutuphane2.UnitOfWork3;
+
+
 
 namespace Kutuphane2.Controllers
 {
     public class KategoriController : Controller
     {
+        
+        UnitOfWork unitOfWork;
+        public KategoriController()
+        {
+            unitOfWork = new UnitOfWork();
+        }
+        
         public IActionResult Index()
         {
-            Context context = new Context();
-            List<int> kategoriIds = new List<int>();
-            kategoriIds.Add(1);
-            kategoriIds.Add(2);
-
-            List<Kategori> kategoriler = new List<Kategori>();
-            foreach (var item in kategoriIds)
-            {
-                var ktg = context.Kategoriler.FirstOrDefault(x => x.Id == item);
-                kategoriler.Add(ktg);
-            }
-
-            
-            Kitap kitap = new Kitap() {
-            KitapAdi="A",
-            StokAdet=2,
-            EklenmeTarihi=DateTime.Now,
-            YazarId = 1,
-            Kategoriler = kategoriler
-            };
-            context.Kitaplar.Add(kitap);
-            context.SaveChanges();
-            return View();
+            var kategoriler = unitOfWork.GetRepository<Kategori>().GetAll();
+            return View(kategoriler);
         }
+        
+        //[HttpPost]
+        //public JsonResult EkleJson(string ktgAd)
+        //{
+        //    Kategori ktgr1 = new Kategori();
+        //    ktgr1.KategoriAdi = ktgAd;
+        //    var eklenenKtg = unitOfWork.GetRepository<Kategori>().Add(ktgr1);
+        //    unitOfWork.SaveChanges();
+        //    return Json{
+        //        new
+        //        {
+        //            Result = new
+        //            {
+
+        //            }
+        //        }
+        //    };
+
+        //}
     }
 }

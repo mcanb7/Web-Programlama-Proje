@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Kategoriler";
+}
+@using Kutuphane2.Models
+@model List<Kitap>
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Kitap Adı</th>
+            <th>Kitap Adeti</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ktg in Model)
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td><button class="guncelle btn btn-custom" value="">Güncelle</button></td>
+                <td><button class="sil btn btn-danger" value="">Sil</button></td>
+
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Kategori Adı</th>
+            <th>Kitap Adeti</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </tfoot>
+</table>
